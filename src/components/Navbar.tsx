@@ -36,7 +36,7 @@ async function Navbar() {
               className="flex items-center gap-2 "
               asChild
             >
-              <Link href="/pants">
+              <Link href="/plants">
                 <Sprout className="w-4 h-4" />
                 <span className="hidden lg:inline">Plants</span>
               </Link>
