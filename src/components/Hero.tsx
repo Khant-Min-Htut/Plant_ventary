@@ -25,8 +25,8 @@ interface Hero1Props {
 
 const Hero = ({
   badge = "✨ Your Website Builder",
-  heading = "Blocks Built With Shadcn & Tailwind",
-  description = "Finely crafted components built with React, Tailwind and Shadcn UI. Developers can copy and paste these blocks directly into their project.",
+  heading = "Your Plantventary",
+  description = "Manage your plant collection with ease. Plantventory helps you track, organize, and update your plants all in one simple dashboard.",
   buttons = {
     primary: {
       text: "Discover all components",
