@@ -15,7 +15,7 @@ import { useState } from "react";
 import { getPlants } from "@/actions/plant.action";
 import { Combobox } from "./ui/combo-box";
 import { useRouter } from "next/navigation";
-import { CreateDialog } from "./CreateDialog";
+import CreateDialog from "./CreateDialog";
 
 type Plants = Awaited<ReturnType<typeof getPlants>>;
 

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,13 +18,14 @@ import { Textarea } from "./ui/textarea";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "./ui/input";
 import { useState } from "react";
+import { createPlant } from "@/actions/plant.action";
 
-export function CreateDialog() {
+export default function CreateDialog() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    stock: "",
-    price: "",
+    stock: 1,
+    price: 1,
     category: "",
     userId: "",
     imageUrl: "",
@@ -37,10 +40,8 @@ export function CreateDialog() {
     try {
       const newPlant = await createPlant(formData);
       console.log("plant created: ", newPlant);
-      toast.success("Plant created successfully");
     } catch (error) {
-      console.error("error creating plant", error);
-      toast.error("Failed to create plant");
+      console.log("error creating plant", error);
     }
   };
 
@@ -117,7 +118,7 @@ export function CreateDialog() {
             </div>
           </div>
 
-          {/*Image Upload*/}
+          {/*  Image Upload */}
           {/* <div className="py-5">
             <ImageUpload
               endpoint="postImage"
@@ -126,8 +127,7 @@ export function CreateDialog() {
                 handleChange("imageUrl", url);
               }}
             />
-          </div>  */}
-
+          </div> */}
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction type="submit">Submit</AlertDialogAction>
