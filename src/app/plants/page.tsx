@@ -1,9 +1,9 @@
 import React from "react";
 import { stackServerApp } from "@/stack";
 import { SignIn, SignUp } from "@stackframe/stack";
-import { Divide } from "lucide-react";
+
 import { InventaryTable } from "@/components/InventaryTable";
-import { clsx } from "clsx";
+
 import { getPlants } from "@/actions/plant.action";
 
 async function page() {
