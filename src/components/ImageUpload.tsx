@@ -12,7 +12,7 @@ interface ImageUploadProps {
 function ImageUpload({ endpoint, onChange, value }: ImageUploadProps) {
   if (value) {
     return (
-      <div className="relative size-40">
+      <div className="relative size-28 sm:size-36">
         <img
           src={value}
           alt="Upload"
@@ -30,22 +30,28 @@ function ImageUpload({ endpoint, onChange, value }: ImageUploadProps) {
   }
 
   return (
-    <div className="w-25 flex items-center">
-      <UploadDropzone<OurFileRouter, "postImage">
-        endpoint={endpoint}
-        onClientUploadComplete={(res) => {
-          // Do something with the response
-          console.log("Files: ", res);
-          //updates the image
-
-          if (res && res[0]?.ufsUrl) {
-            onChange(res[0].ufsUrl);
-          }
-        }}
-        onUploadError={(error: Error) => {
-          alert(`ERROR! ${error.message}`);
-        }}
-      />
+    <div className="flex justify-center items-center w-full">
+      <div className="w-[120px] sm:w-[160px]">
+        <UploadDropzone<OurFileRouter, "postImage">
+          endpoint={endpoint}
+          onClientUploadComplete={(res) => {
+            if (res && res[0]?.ufsUrl) {
+              onChange(res[0].ufsUrl);
+            }
+          }}
+          onUploadError={(error: Error) => {
+            alert(`ERROR! ${error.message}`);
+          }}
+          appearance={{
+            button: "text-xs sm:text-sm py-1 px-2",
+            container:
+              // smaller + more compact style for mobile
+              "border-dashed border-2 border-gray-500/40 rounded-lg p-2 sm:p-4 bg-transparent hover:bg-gray-800/10 transition-all",
+            uploadIcon: "w-8 h-8 sm:w-10 sm:h-10", // smaller upload icon
+            label: "text-xs sm:text-sm", // compact label text
+          }}
+        />
+      </div>
     </div>
   );
 }

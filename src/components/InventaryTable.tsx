@@ -96,7 +96,7 @@ export function InventaryTable({ plants }: InventaryTableProps) {
   }
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="flex items-center gap-2 py-4">
         <div className="relative max-w--sm w-full">
           <Input
@@ -113,43 +113,49 @@ export function InventaryTable({ plants }: InventaryTableProps) {
         />
         <CreateDialog />
       </div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Plant ID</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Stock</TableHead>
-            <TableHead className="text-right">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filteredPlants?.map((plant) => {
-            const slugifiedName = plant.name.toLowerCase().replace(/\s+/g, "-");
-            const slug = `${plant.id}--${slugifiedName}`;
-            const plantUrl = `/plants/${slug}`;
-            return (
-              <TableRow key={plant.id} onClick={() => router.push(plantUrl)}>
-                <TableCell>{plant.id}</TableCell>
-                <TableCell>{plant.name}</TableCell>
-                <TableCell>{plant.category}</TableCell>
-                <TableCell>{plant.price}</TableCell>
-                <TableCell className="font-bold">{plant.stock}</TableCell>
-                <TableCell className="text-right">
-                  <div
-                    className="flex justify-end space-x-4"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <EditDialog plant={plant} />
-                    <DeleteDialog plant={plant} />
-                  </div>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+      <div className="w-full overflow-x-auto scrollbar-hide">
+        <Table className="min-w-[600px]">
+          <TableHeader>
+            <TableRow>
+              <TableHead>Plant ID</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Category</TableHead>
+              <TableHead>Price</TableHead>
+              <TableHead>Stock</TableHead>
+              <TableHead className="text-right">Action</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredPlants?.map((plant) => {
+              const slugifiedName = plant.name.toLowerCase().replace(/\s+/g, "-");
+              const slug = `${plant.id}--${slugifiedName}`;
+              const plantUrl = `/plants/${slug}`;
+              return (
+                <TableRow
+                  key={plant.id}
+                  className=""
+                  onClick={() => router.push(plantUrl)}
+                >
+                  <TableCell>{plant.id}</TableCell>
+                  <TableCell>{plant.name}</TableCell>
+                  <TableCell>{plant.category}</TableCell>
+                  <TableCell>{plant.price}</TableCell>
+                  <TableCell className="font-bold">{plant.stock}</TableCell>
+                  <TableCell className="text-right">
+                    <div
+                      className="flex justify-end space-x-4"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <EditDialog plant={plant} />
+                      <DeleteDialog plant={plant} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

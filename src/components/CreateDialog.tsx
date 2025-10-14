@@ -41,11 +41,11 @@ export default function CreateDialog() {
     e.preventDefault();
     try {
       const newPlant = await createPlant(formData);
-      console.log("plant created: ", newPlant);
+      console.log("Plant created:", newPlant);
       toast.success("Plant created successfully");
     } catch (error) {
-      console.log("error creating plant", error);
-      toast.error("Fail to create!!");
+      console.log("Error creating plant", error);
+      toast.error("Failed to create!");
     }
   };
 
@@ -54,27 +54,46 @@ export default function CreateDialog() {
       <AlertDialogTrigger asChild>
         <Button
           variant="default"
-          className="ml-auto font-bold flex items-center   gap-2"
-          asChild
+          className="ml-auto font-bold flex items-center gap-2"
         >
-          <span>
-            <Sprout className="w-4 h-4" />
-            <span className="select-none">Add Plant</span>
-          </span>
+          <Sprout className="w-4 h-4" />
+          <span className="select-none">Add Plant</span>
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+
+      {/* 🌿 Responsive Dialog */}
+      <AlertDialogContent
+        className="
+    w-[90vw]
+    max-w-md sm:max-w-xl md:max-w-2xl
+    rounded-2xl
+    p-4 sm:p-6
+    bg-background
+    flex flex-col
+    max-h-[95vh]
+    h-[90vh] sm:h-auto
+    scrollbar-hide
+    overflow-y-auto
+    md:overflow-visible
+   
+    "
+      >
         <AlertDialogHeader>
-          <AlertDialogTitle>Add a Plant</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="text-lg md:text-xl">
+            Add a Plant
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-sm md:text-base">
             Fill out the form below to add a new plant to your inventory.
           </AlertDialogDescription>
         </AlertDialogHeader>
 
-        <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="name">Name</Label>
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+          {/* 🧾 Name + Category */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="name" className="text-sm font-medium">
+                Name
+              </Label>
               <Input
                 id="name"
                 type="text"
@@ -83,25 +102,37 @@ export default function CreateDialog() {
                 onChange={(e) => handleChange("name", e.target.value)}
               />
             </div>
-            <div>
-              <Label htmlFor="category">Category</Label>
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="category" className="text-sm font-medium">
+                Category
+              </Label>
               <Combobox
                 value={formData.category}
                 onChange={(val) => handleChange("category", val)}
               />
             </div>
           </div>
-          <Label htmlFor="description">Description</Label>
-          <Textarea
-            id="description"
-            placeholder="Type your message here."
-            rows={5}
-            value={formData.description}
-            onChange={(e) => handleChange("description", e.target.value)}
-          />
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="stock">Stock</Label>
+
+          {/* 📝 Description */}
+          <div className="flex flex-col gap-1">
+            <Label htmlFor="description" className="text-sm font-medium">
+              Description
+            </Label>
+            <Textarea
+              id="description"
+              placeholder="Type your message here..."
+              rows={3}
+              value={formData.description}
+              onChange={(e) => handleChange("description", e.target.value)}
+            />
+          </div>
+
+          {/* 📦 Stock + 💰 Price */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="stock" className="text-sm font-medium">
+                Stock
+              </Label>
               <Input
                 id="stock"
                 type="number"
@@ -110,8 +141,10 @@ export default function CreateDialog() {
                 onChange={(e) => handleChange("stock", Number(e.target.value))}
               />
             </div>
-            <div>
-              <Label htmlFor="price">Price</Label>
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="price" className="text-sm font-medium">
+                Price
+              </Label>
               <Input
                 id="price"
                 type="number"
@@ -122,19 +155,26 @@ export default function CreateDialog() {
             </div>
           </div>
 
-          <div className="py-10">
+          {/* 🖼️ Image Upload */}
+          <div className="pt-2">
+            <Label className="text-sm font-medium mb-2 block">
+              Upload Image
+            </Label>
             <ImageUpload
               endpoint="postImage"
               value={formData.imageUrl}
-              onChange={(url) => {
-                handleChange("imageUrl", url);
-              }}
+              onChange={(url) => handleChange("imageUrl", url)}
             />
           </div>
 
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction type="submit">Submit</AlertDialogAction>
+          {/* ✅ Footer Buttons */}
+          <AlertDialogFooter className="pt-3 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+            <AlertDialogCancel className="w-full sm:w-auto">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction type="submit" className="w-full sm:w-auto">
+              Submit
+            </AlertDialogAction>
           </AlertDialogFooter>
         </form>
       </AlertDialogContent>
