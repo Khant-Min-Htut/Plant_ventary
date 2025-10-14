@@ -25,3 +25,4 @@ model Plants {
   userId      String
   imageUrl    String?
 }
+

@@ -1,5 +1,5 @@
 import React from "react";
-import { stackServerApp } from "@/stack/server";
+import { stackServerApp } from "@/stack";
 import { SignIn, SignUp } from "@stackframe/stack";
 import { Divide } from "lucide-react";
 import { InventaryTable } from "@/components/InventaryTable";

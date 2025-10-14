@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import ModeToggle from "./ModeToggle";
-import { stackServerApp } from "@/stack/server";
+import { stackServerApp } from "@/stack";
 import { getUserDetails } from "@/actions/user.action";
 import { UserButton } from "@stackframe/stack";
 

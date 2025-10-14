@@ -16,6 +16,8 @@ import { getPlants } from "@/actions/plant.action";
 import { Combobox } from "./ui/combo-box";
 import { useRouter } from "next/navigation";
 import CreateDialog from "./CreateDialog";
+import EditDialog from "./EditDialog";
+import DeleteDialog from "./DeleteDialog";
 
 type Plants = Awaited<ReturnType<typeof getPlants>>;
 
@@ -135,9 +137,12 @@ export function InventaryTable({ plants }: InventaryTableProps) {
                 <TableCell>{plant.price}</TableCell>
                 <TableCell className="font-bold">{plant.stock}</TableCell>
                 <TableCell className="text-right">
-                  <div className="flex justify-end space-x-4">
-                    <h1>Edit Button</h1>
-                    <h1>Delete </h1>
+                  <div
+                    className="flex justify-end space-x-4"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <EditDialog plant={plant} />
+                    <DeleteDialog plant={plant} />
                   </div>
                 </TableCell>
               </TableRow>

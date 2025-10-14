@@ -1,7 +1,7 @@
 import React from "react";
 import PlantCard from "./PlantCard";
 import { getPlantById } from "@/actions/plant.action";
-import { stackServerApp } from "@/stack/server";
+import { stackServerApp } from "@/stack";
 import { SignIn } from "@stackframe/stack";
 
 export async function generateMetadata({

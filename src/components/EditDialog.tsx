@@ -1,5 +1,3 @@
-"use client";
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,26 +10,31 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Sprout } from "lucide-react";
+import { EditIcon, Sprout } from "lucide-react";
 import { Combobox } from "./ui/combo-box";
-import { Textarea } from "./ui/textarea";
-import { Label } from "@radix-ui/react-label";
+import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { useState } from "react";
-import { createPlant } from "@/actions/plant.action";
+import { Textarea } from "./ui/textarea";
+import { editPlant, getPlantById } from "@/actions/plant.action";
 import toast from "react-hot-toast";
-import ImageUpload from "./ImageUpload";
 
-export default function CreateDialog() {
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    stock: 1,
-    price: 1,
-    category: "",
-    userId: "",
-    imageUrl: "",
-  });
+type Plant = NonNullable<Awaited<ReturnType<typeof getPlantById>>>;
+
+interface EditDialogProps {
+  plant: Plant;
+}
+
+export default function EditDialog({ plant }: EditDialogProps) {
+  const [formData, setFormData] = useState(() => ({
+    name: plant.name.trim(),
+    description: (plant.description || "").trim(),
+    stock: plant.stock,
+    price: plant.price,
+    category: plant.category.trim(),
+    userId: plant.userId.trim(),
+    imageUrl: plant.imageUrl || "",
+  }));
 
   const handleChange = (field: string, value: string | number) => {
     setFormData({ ...formData, [field]: value });
@@ -40,12 +43,12 @@ export default function CreateDialog() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const newPlant = await createPlant(formData);
-      console.log("plant created: ", newPlant);
-      toast.success("Plant created successfully");
+      const newPlant = await editPlant(plant.id, formData);
+      console.log("plant edited: ", newPlant);
+      toast.success("Plant edited successfully");
     } catch (error) {
-      console.log("error creating plant", error);
-      toast.error("Fail to create!!");
+      console.error("error creating plant", error);
+      toast.error("Failed to edit plant");
     }
   };
 
@@ -53,13 +56,13 @@ export default function CreateDialog() {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          variant="default"
-          className="ml-auto font-bold flex items-center   gap-2"
+          variant="secondary"
+          className="ml-auto flex items-center gap-2"
           asChild
         >
           <span>
-            <Sprout className="w-4 h-4" />
-            <span className="select-none">Add Plant</span>
+            <EditIcon className="w-4 h-4" />
+            <span className="select-none">Edit Plant</span>
           </span>
         </Button>
       </AlertDialogTrigger>
@@ -122,7 +125,8 @@ export default function CreateDialog() {
             </div>
           </div>
 
-          <div className="py-10">
+          {/*Image Upload*/}
+          {/* <div className="py-5">
             <ImageUpload
               endpoint="postImage"
               value={formData.imageUrl}
@@ -130,7 +134,7 @@ export default function CreateDialog() {
                 handleChange("imageUrl", url);
               }}
             />
-          </div>
+          </div> */}
 
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
