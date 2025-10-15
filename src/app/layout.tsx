@@ -19,7 +19,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Plantventory",
+  title: "Plantventary",
   description: "Inventory for plants",
 };
 
