@@ -61,7 +61,6 @@ export default function CreateDialog() {
         </Button>
       </AlertDialogTrigger>
 
-      {/* 🌿 Responsive Dialog */}
       <AlertDialogContent
         className="
     w-[90vw]
@@ -88,7 +87,6 @@ export default function CreateDialog() {
         </AlertDialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-          {/* 🧾 Name + Category */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1">
               <Label htmlFor="name" className="text-sm font-medium">
@@ -113,7 +111,6 @@ export default function CreateDialog() {
             </div>
           </div>
 
-          {/* 📝 Description */}
           <div className="flex flex-col gap-1">
             <Label htmlFor="description" className="text-sm font-medium">
               Description
@@ -127,7 +124,6 @@ export default function CreateDialog() {
             />
           </div>
 
-          {/* 📦 Stock + 💰 Price */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-1">
               <Label htmlFor="stock" className="text-sm font-medium">
@@ -155,7 +151,6 @@ export default function CreateDialog() {
             </div>
           </div>
 
-          {/* 🖼️ Image Upload */}
           <div className="pt-2">
             <Label className="text-sm font-medium mb-2 block">
               Upload Image
@@ -167,7 +162,6 @@ export default function CreateDialog() {
             />
           </div>
 
-          {/* ✅ Footer Buttons */}
           <AlertDialogFooter className="pt-3 flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
             <AlertDialogCancel className="w-full sm:w-auto">
               Cancel
